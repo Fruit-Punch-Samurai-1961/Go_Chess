@@ -1,5 +1,5 @@
 ## Go Chess
-Go Chess is a full stack app which uses websockets to allow users to play chess each other.
+Go Chess is a full-stack app that uses WebSockets to allow users to play chess with each other.
 
 ## Prerequisites
 Before you begin, ensure that you have the following requirements:
