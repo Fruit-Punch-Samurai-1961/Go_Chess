@@ -1,0 +1,33 @@
+{{template "base" .}}
+
+{{define "title"}}Play{{end}}
+<link rel="stylesheet" href="/ui/static/css/game.css" type="text/css">
+{{define "body"}}
+    {{/*    Chat Box Html*/}}
+    <div id="container">
+        <div id="chatleft">
+            <textarea id="textarea" cols="30" rows="28" readonly></textarea>
+            <form id="form">
+                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+                <label for="message">Enter Message:</label><input id="message" type="text" maxlength="68" size="32">
+                <input type="submit" id="sendMessage" value="Send Message">
+            </form>
+        </div>
+        <div id="game">
+            <div id="board1"></div>
+            <label>Status:</label>
+            <div id="status"></div>
+        </div>
+    </div>
+{{end}}
+<script>
+    //initialize vars which can be used by the next two javascript files
+    {{with .Game}}
+    const gameInfo = {key: {{.Key}}, fen: {{.Fen}}};
+    {{end}}
+    const movesList = {{.Game.Key | .Hub.GetMoves}};
+    let playerNum = {{.Game.Key | .Hub.GetLen}};
+    playerNum++;
+</script>
+<script rel="script" src="/ui/static/js/chesslogic.js"></script>
+<script rel="script" src="/ui/static/js/websocket.js"></script>

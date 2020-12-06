@@ -1,0 +1,26 @@
+{{template "base" .}}
+{{define "title"}}Home{{end}}
+{{define "body"}}
+    <link rel="stylesheet" href="/ui/static/css/home.css" type="text/css">
+    <form method="post">
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+        {{with .Form}}
+            <div class="room-code">
+                <div>
+                    <label>Room-Code:</label>
+                    {{with .Errors.Get "room-code"}}
+                        <label class="error">{{.}}</label>
+                    {{end}}
+                    <br>
+                    <input type="text" name="room-code">
+                </div>
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <input type="submit" value="Create a Room" name="submit">
+                        <input type="submit" value="Enter Room" name="submit">
+                    </div>
+                </div>
+            </div>
+        {{end}}
+    </form>
+{{end}}

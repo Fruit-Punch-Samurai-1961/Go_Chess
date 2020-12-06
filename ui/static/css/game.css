@@ -1,0 +1,30 @@
+.navbar {
+    margin-bottom: 100px;
+}
+
+
+body {
+    font-family: Verdana, serif;
+    font-size: 13px;
+}
+
+#chatleft {
+    float: left;
+    width: 300px;
+    display: block;
+}
+
+#container {
+    width: 800px;
+    margin-left: 100px;
+}
+
+#game {
+    width: 300px;
+    float: right;
+}
+
+#board1 {
+    width: 400px;
+}
+
