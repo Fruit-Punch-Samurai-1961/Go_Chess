@@ -48,7 +48,6 @@ const (
 
 var (
 	Upgrader = websocket.Upgrader{ReadBufferSize: 1024, WriteBufferSize: 1024}
-	mu sync.Mutex
 )
 
 //cleans up the message to send
@@ -132,15 +131,9 @@ func (s *Subscription) ReadPump() {
 		} else if jsonInfo.MessageType == "send_move" {
 			if jsonInfo.GameFen != "" {
 				if len(s.Hub.MovesList[s.Room]) > 2 {
-					mu.Lock()
 					_, s.Hub.MovesList[s.Room] = s.Hub.MovesList[s.Room][0], s.Hub.MovesList[s.Room][1:]
-					s.Hub.MovesList[s.Room] = append(s.Hub.MovesList[s.Room], jsonInfo.GameFen)
-					mu.Unlock()
-				} else {
-					mu.Lock()
-					s.Hub.MovesList[s.Room] = append(s.Hub.MovesList[s.Room], jsonInfo.GameFen)
-					mu.Unlock()
 				}
+				s.Hub.MovesList[s.Room] = append(s.Hub.MovesList[s.Room], jsonInfo.GameFen)
 			}
 		}
 		//put it into the Message Struct so that the hub knows which room to send the info to
