@@ -95,7 +95,7 @@ func (h *Hub) Run() {
 func (h *Hub) GetMoves(room string) []string {
 	var moveslist []string
 	mu.RLock()
-	defer mu.Unlock()
+	defer mu.RUnlock()
 	for _, moves := range h.MovesList[room] {
 		moveslist = append(moveslist, moves)
 	}
