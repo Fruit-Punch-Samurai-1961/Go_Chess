@@ -6,7 +6,10 @@ import (
 	"github.com/sheshan1961/chessapp/pkg/models/mysql"
 	"log"
 	"runtime/debug"
+	"sync"
 )
+
+var mu sync.Mutex
 
 type Hub struct {
 	//Think of Rooms like {"Room-Key" : {conn_1 : True, conn_2: True}, "Room-Key-2" : {conn_1 : true}}
@@ -91,14 +94,18 @@ func (h *Hub) Run() {
 
 func (h *Hub) GetMoves(room string) []string {
 	var moveslist []string
+	mu.Lock()
 	for _, moves := range h.MovesList[room] {
 		moveslist = append(moveslist, moves)
 	}
+	mu.Unlock()
 	return moveslist
 }
 
 func (h *Hub) SaveGame(room string) {
+	mu.Lock()
 	lastMove := h.MovesList[room][len(h.MovesList[room])-1]
+	mu.Unlock()
 	_ = h.Game.Save(room, lastMove)
 }
 
