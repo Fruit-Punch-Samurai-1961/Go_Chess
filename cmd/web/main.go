@@ -85,7 +85,8 @@ func main() {
 	//declare new session manager and set lifetime to expire after 12 hours
 	sessionManager := scs.New()
 	sessionManager.Lifetime = 12 * time.Hour
-
+	sessionManager.Cookie.Secure = true
+	
 	//make hub for all connections and pass in the database, so we can save the last move made once the player exits
 	hub := websockets.NewHub(db)
 	go hub.Run()
